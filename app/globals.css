@@ -24,3 +24,12 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.brand-logos-img {
+  width: auto !important;
+  height: 80px !important;
+  max-width: 400px;
+  object-fit: contain;
+  display: block;
+}

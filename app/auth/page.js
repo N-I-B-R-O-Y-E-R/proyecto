@@ -1,12 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image'; // Importar el componente Image para optimización
 import { supabaseClient } from '@/lib/supabase.client'; 
 
 export default function AuthPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-
+    
     const initialEmail = searchParams.get('email') || ''; 
     
     const [email, setEmail] = useState(initialEmail);
@@ -32,7 +33,8 @@ export default function AuthPage() {
 
         setLoading(false);
 
-        if (profileError && profileError.code !== 'PGRST116') { // 'PGRST116' significa que no se encontró la fila (raro, pero posible)
+        // 'PGRST116' significa que no se encontró la fila (usuario nuevo que necesita configurar perfil)
+        if (profileError && profileError.code !== 'PGRST116') { 
             console.error('Error fetching profile:', profileError);
             router.replace('/home'); // Fallback
             return;
@@ -103,15 +105,23 @@ export default function AuthPage() {
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#040714] p-6">
             <div className="bg-white p-10 rounded-lg shadow-xl w-full max-w-md">
                 
-                {/* Logo Superior - RUTA CORREGIDA A logo_dark.png */}
-                <img src="/images/logo_dark.png" alt="My Disney Logo" className="w-24 mx-auto mb-6" />
+                <div className="mx-auto mb-6 w-24 h-24 relative">
+                    <Image 
+                        src="/images/logo_dark.png" 
+                        alt={"My Disney Logo"} 
+                        width={96}
+                        height={96}
+                        priority
+                        style={{ width: 'auto', height: 'auto', display: 'block' }}
+                    />
+                </div>
                 
                 <div className="text-center mb-6">
                     <h1 className="text-xl font-bold text-gray-800 mb-2">
                         Enter your email to continue
                     </h1>
                     <p className="text-sm text-gray-500">
-                        Log in to Disney+ with your MyDisney account. If you don't have one, you will be prompted to create one.
+                        Log in to Disney+ with your MyDisney account. If you **don&apos;t** have one, you will be prompted to create one.
                     </p>
                 </div>
                 
@@ -143,7 +153,6 @@ export default function AuthPage() {
                         />
                     </div>
                     
-                    {/* Botón de Continuar/Login/Sign Up */}
                     <button
                         type="submit"
                         disabled={loading}

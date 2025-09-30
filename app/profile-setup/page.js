@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabaseClient } from '@/lib/supabase.client'; 
+import Image from 'next/image';
 
 // Lista de avatares de Disney con nombres de archivo actualizados a avatarX.png
 const disneyAvatars = [
@@ -115,10 +116,12 @@ export default function ProfileSetupPage() {
                                         ${selectedAvatar === avatar.url ? 'border-4 border-cyan-500 scale-110' : 'border-4 border-transparent opacity-70 hover:opacity-100'}`}
                                     onClick={() => setSelectedAvatar(avatar.url)}
                                 >
-                                    <img 
+                                    <Image 
                                         src={avatar.url} 
                                         alt={avatar.name} 
                                         className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-full" 
+                                        width={96}
+                                        height={96}
                                     />
                                 </div>
                             ))}

@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useMemo, useCallback } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { supabaseClient } from '@/lib/supabase.client';
 import ContentList from './components/ContentList';
@@ -393,11 +394,15 @@ export default function HomePage() {
             >
                 
                 {/* 1. LOGO DE DISNEY */}
-                <img 
+                <Image 
                     src={logoSrc} 
-                    alt="Disney+ Logo" 
+                    alt={"Disney+ Logo"} 
                     className="h-12 md:h-16" 
-                /> 
+                    width={120}
+                    height={64}
+                    priority
+                    style={{ width: 'auto', height: 'auto' }}
+                />
                 
                 {/* 2. BARRA DE BÚSQUEDA Y FILTRO */}
                 <div className="flex items-center space-x-6">
@@ -422,10 +427,12 @@ export default function HomePage() {
                     {/* 4. AVATAR / PROFILE */}
                     {profile && (
                         <div className="flex items-center space-x-2 group cursor-pointer relative">
-                            <img 
+                            <Image 
                                 src={profile.avatar_url} 
-                                alt={`${profile.username}'s avatar`} 
+                                alt={`${profile.username}&apos;s avatar`} 
                                 className={`w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border transition ${isDarkMode ? 'border-cyan-500 hover:border-white' : 'border-cyan-600 hover:border-gray-900'}`}
+                                width={48}
+                                height={48}
                             />
                             
                             {/* Floating Logout Button */}

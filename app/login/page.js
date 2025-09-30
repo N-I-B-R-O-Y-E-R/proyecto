@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 // Asume que ya creaste lib/supabase.client.js
 import { supabaseClient } from '@/lib/supabase.client'; 
 
@@ -44,7 +45,7 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#040714] p-6">
-            <img src="/images/disney_logo.png" alt="Disney+ Logo" className="w-28 mb-10" />
+            <Image src="/images/disney_logo.png" alt={"Disney+ Logo"} width={112} height={44} priority style={{ width: 'auto', height: 'auto', display: 'block', marginBottom: '2.5rem' }} />
             
             <div className="bg-[#151924] p-10 rounded-lg shadow-xl w-full max-w-md">
                 <h1 className="text-2xl font-bold text-white mb-6 text-center">

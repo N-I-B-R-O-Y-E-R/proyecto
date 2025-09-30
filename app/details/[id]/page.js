@@ -4,6 +4,7 @@
 'use client';
 
 import { ArrowLeft, Play, Plus, XCircle, Info } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter, useParams } from 'next/navigation';
 
 // =====================================================================
@@ -79,7 +80,7 @@ const NotFoundMessage = ({ contentId, bgColor, textColor, router }) => (
     <div className={`min-h-screen ${bgColor} ${textColor} flex flex-col items-center justify-center p-8 text-center`}>
         <XCircle className="w-12 h-12 text-red-500 mb-4" />
         <h1 className="text-3xl font-bold mb-4">Contenido No Encontrado</h1>
-        <p className="text-lg mb-8">El ID de contenido **"{contentId || 'vacío'}"** no existe.</p>
+    <p className="text-lg mb-8">El ID de contenido **&quot;{contentId || 'vacío'}&quot;** no existe.</p>
         <ActionButton icon={ArrowLeft} text="Volver al Inicio" onClick={() => router.push('/')} primary={true} />
     </div>
 );
@@ -195,11 +196,13 @@ export default function DetailsPage() {
                             <h3 className="text-xl font-extrabold mb-4 text-cyan-400">Datos Clave</h3>
 
                             {/* Usamos el poster_url para la imagen lateral (vertical) */}
-                            <img
+                            <Image
                                 src={content.poster_url}
                                 alt={`Poster de ${content.title}`}
-                                onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/300x450/040714/FFFFFF?text=POSTER"; }}
                                 className="w-full h-auto rounded-lg mb-4 object-cover shadow-xl"
+                                width={300}
+                                height={450}
+                                onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/300x450/040714/FFFFFF?text=POSTER'; }}
                             />
 
                             <div className='space-y-2 text-gray-200'>
